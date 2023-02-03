@@ -71,8 +71,8 @@
                 <div class="multi-level collapse" role="list" id="submenu-app" aria-expanded="false">
                     <ul class="flex-column nav">
                         <li class="nav-item">
-                            <a class="nav-link" href="#">
-                                <span class="sidebar-text">Bootstrap Tables</span>
+                            <a class="nav-link" href="{{ route('bookings.index') }}">
+                                <span class="sidebar-text">Bookings</span>
                             </a>
                         </li>
                     </ul>

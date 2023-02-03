@@ -89,7 +89,7 @@
 
 <body>
 
-    @if (in_array(request()->segment(1), ['dashboard', 'datatable']))
+    @if (in_array(request()->segment(1), ['dashboard', 'datatable', 'bookings']))
         <!-- Sidenav -->
         @include('Layouts.sidenav')
 
@@ -101,8 +101,11 @@
             @include('Layouts.footer')
 
         </main>
+
     @else
+
         {{ $slot }}
+        
     @endif
 
 </body>

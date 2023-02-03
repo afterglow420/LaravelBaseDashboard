@@ -135,8 +135,8 @@
                 var table = $('#dataTable').DataTable({
                     dom: 'Bfrtipl',
                     lengthMenu: [
-                        [10, 20, 50, 100, 1000, -1],
-                        [10, 20, 50, 100, 1000, "All"]
+                        [10, 20, 50, -1],
+                        [10, 20, 50, "All"]
                     ],
                     buttons: [
                         'copy', 'excel', 'pdf', 'print'
