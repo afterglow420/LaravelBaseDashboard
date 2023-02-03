@@ -147,7 +147,5 @@
             });
         </script>
     @endpush
-asd
-    
 
 </x-layouts.app>
