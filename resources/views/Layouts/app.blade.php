@@ -34,6 +34,10 @@
     <!-- Notyf -->
     <link type="text/css" href="{{ URL::to('vendor/notyf/notyf.min.css') }}" rel="stylesheet">
 
+    <!-- Styles CSS -->
+    <link type="text/css" href="{{ URL::to('css/styles.css') }}" rel="stylesheet">
+    
+
     <!-- Scripts -->
 
     <!-- Core -->

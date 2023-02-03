@@ -1,5 +1,6 @@
 <x-layouts.app>
 
+    <!-- Table info card --> 
     <div class="card mt-2">
         <div class="card-body">
             <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center py-4">
@@ -27,7 +28,7 @@
         </div>
     </div>
 
-
+    <!-- Table -->
     <div class="mt-2 card card-body border-0 shadow">
         <div class="row mb-2">
             <div class="col md-6">
@@ -143,11 +144,9 @@
                     colReorder: true,
                     rowReorder: true,
                 });
-                table.buttons().container().appendTo('#dataTable_wrapper .col-md-6:eq(0)');
+                table.buttons().container().appendTo('#dataTable_wrapper .col-md-6');
             });
         </script>
     @endpush
-asd
-    
 
 </x-layouts.app>
