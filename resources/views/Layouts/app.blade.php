@@ -36,14 +36,14 @@
 
     <!-- Styles CSS -->
     <link type="text/css" href="{{ URL::to('css/styles.css') }}" rel="stylesheet">
-    
-
+   
     <!-- Scripts -->
 
     <!-- Core -->
     <script src="{{ URL::to('vendor/@popperjs/core/dist/umd/popper.min.js') }}"></script>
     <script src="{{ URL::to('vendor/bootstrap/dist/js/bootstrap.min.js') }}"></script>
 
+    <!-- Jquery JS -->
     <script src="https://code.jquery.com/jquery-3.6.3.min.js"
         integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
 

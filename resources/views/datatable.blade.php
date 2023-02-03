@@ -3,7 +3,7 @@
     <!-- Table info card --> 
     <div class="card mt-2">
         <div class="card-body">
-            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center py-4">
+            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center">
                 <div class="d-block mb-4 mb-md-0">
                     <nav aria-label="breadcrumb" class="d-none d-md-inline-block">
                         <ol class="breadcrumb breadcrumb-dark breadcrumb-transparent">
@@ -135,8 +135,8 @@
                 var table = $('#dataTable').DataTable({
                     dom: 'Bfrtipl',
                     lengthMenu: [
-                        [10, 20, 50, 100, 1000, -1],
-                        [10, 20, 50, 100, 1000, "All"]
+                        [10, 20, 50, -1],
+                        [10, 20, 50, "All"]
                     ],
                     buttons: [
                         'copy', 'excel', 'pdf', 'print'
