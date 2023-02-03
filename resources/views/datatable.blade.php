@@ -21,7 +21,7 @@
                             <li class="breadcrumb-item active" aria-current="page">Table Name</li>
                         </ol>
                     </nav>
-                    <h2 class="h4">Table Name</h2>
+                    <h2 class="h4">Table Name Main</h2>
                     <p class="mb-0">Table information panel.</p>
                 </div>
             </div>
