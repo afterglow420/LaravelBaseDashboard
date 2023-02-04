@@ -17,6 +17,9 @@
     <!-- Links -->
     <link rel="canonical" href="https://themesberg.com/product/admin-dashboard/volt-premium-bootstrap-5-dashboard" />
 
+    <link href='https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css' rel='stylesheet'>
+    <link href='https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css' rel='stylesheet'>
+
     <!-- Volt CSS -->
     <link type="text/css" href="{{ URL::to('css/volt.css') }}" rel="stylesheet" />
 
@@ -27,7 +30,7 @@
     <!-- dataTables CSS -->
     <link rel="stylesheet" type="text/css"
         href="https://cdn.datatables.net/v/bs5/jszip-2.5.0/dt-1.13.1/b-2.3.3/b-html5-2.3.3/b-print-2.3.3/cr-1.6.1/date-1.2.0/r-2.4.0/rr-1.3.1/sb-1.4.0/sp-2.1.0/sl-1.5.0/datatables.min.css" />
-        
+
     <!-- Sweet Alert -->
     <link type="text/css" href="{{ URL::to('vendor/sweetalert2/dist/sweetalert2.min.css') }}" rel="stylesheet">
 
@@ -36,14 +39,17 @@
 
     <!-- Styles CSS -->
     <link type="text/css" href="{{ URL::to('css/styles.css') }}" rel="stylesheet">
-    
+
 
     <!-- Scripts -->
 
-    <!-- Core -->
+    <!-- popper JS -->
     <script src="{{ URL::to('vendor/@popperjs/core/dist/umd/popper.min.js') }}"></script>
+
+    <!-- Bootstrap JS -->
     <script src="{{ URL::to('vendor/bootstrap/dist/js/bootstrap.min.js') }}"></script>
 
+    <!-- jQuerry -->
     <script src="https://code.jquery.com/jquery-3.6.3.min.js"
         integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
 
@@ -101,11 +107,8 @@
             @include('Layouts.footer')
 
         </main>
-
     @else
-
         {{ $slot }}
-        
     @endif
 
 </body>

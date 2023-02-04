@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\BookingController;
-
+use App\Http\Controllers\Dashboard\CalendarController;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,3 +21,4 @@ Route::get('/dashboard', function () {
 
 Route::resource('bookings', BookingController::class);
 
+Route::get('dashboard', [CalendarController::class, 'index'])->name('dashboard');
