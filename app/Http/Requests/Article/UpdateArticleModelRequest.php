@@ -13,7 +13,7 @@ class UpdateArticleModelRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,8 @@ class UpdateArticleModelRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'article_title' => 'required|max:24',
+            'article_text' => 'required|min:24',
         ];
     }
 }

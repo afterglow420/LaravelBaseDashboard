@@ -31,11 +31,12 @@
                 <div class="modal-body">
                     <div class="mb-3">
                         <label for="article_title" class="form-label">Article Title</label>
-                        <input type="text" name="article_title" class="form-control" id="article_title" value="{{ $article->article_titlegi }}">
+                        <input type="text" name="article_title" class="form-control" id="article_title"
+                            value="{{ $article->article_title }}">
                     </div>
                     <div class="form-group">
                         <label for="article_text">Article Content</label>
-                        <textarea name="article_text" id="article_text" rows="6" class="form-control">{{ $article->article_text }}</textarea>
+                        <textarea id="articleEditor" name="article_text" id="article_text" rows="6" class="form-control">{{ $article->article_text }}</textarea>
                     </div>
                 </div>
                 <button type="submit" class="btn btn-primary btn-sm">Save</button>
@@ -70,4 +71,16 @@
             </div>
         </div>
     </div>
+
+    @push('scripts')
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/6.2.0/tinymce.min.js"></script>
+        <script>
+            tinymce.init({
+                selector: 'textarea#articleEditor',
+                menubar: false,
+                plugins: 'code table lists image',
+                toolbar: 'undo redo | blocks | bold italic | alignleft aligncenter alignright | indent outdent | bullist numlist | table | image',
+            });
+        </script>
+    @endpush
 </x-layouts.app>

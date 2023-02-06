@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\Articles;
+namespace App\Http\Requests\Article;
 
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -13,7 +13,7 @@ class StoreArticleModelRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,8 @@ class StoreArticleModelRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'article_title' => 'required|max:24',
+            'article_text' => 'sometimes',
         ];
     }
 }

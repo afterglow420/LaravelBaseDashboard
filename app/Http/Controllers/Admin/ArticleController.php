@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Articles\StoreArticleModelRequest;
+use App\Http\Requests\Article\UpdateArticleModelRequest;
+use App\Http\Requests\Article\StoreArticleModelRequest;
 use App\Models\ArticleModel;
-use Illuminate\Http\Request;
 
 class ArticleController extends Controller
 {
@@ -26,11 +26,11 @@ class ArticleController extends Controller
         return view('Admin.Article.ArticleEdit_View', ['article' => $article]);
     }
 
-    public function update(StoreArticleModelRequest $request, ArticleModel $article)
+    public function update(UpdateArticleModelRequest $request, ArticleModel $article)
     {
-        dd($article);
+        // dd($article);
 
-        $article->fill($request->validate())->save();
+        $article->fill($request->validated())->save();
         
         return redirect()->back()->with('message', 'Article successfully update!');
     }
@@ -40,5 +40,10 @@ class ArticleController extends Controller
         $article->delete();
 
         return redirect()->route('articles.index')->with('message', 'Article deleted successfully!');
+    }
+
+    public function upload()
+    {
+
     }
 }

@@ -69,7 +69,6 @@
                 <tr>
                     <th class="border-gray-200">Article Id</th>
                     <th class="border-gray-200">Article Title</th>
-                    <th class="border-gray-200">Article Text</th>
                     <th class="border-gray-200">Actions</th>
                 </tr>
             </thead>
@@ -78,7 +77,6 @@
                     <tr>
                         <td class="fw-bold">{{ $article->id_article }}</td>
                         <td>{{ $article->article_title }}</td>
-                        <td>{{ $article->article_text }}</td>
                         <td>
                             <a class="btn btn-sm btn-warning mr-2 mt-1" href="{{ route('articles.show', $article->id_article) }}">
                                 <i class="fa-solid fa-pen-to-square"></i>
@@ -105,10 +103,6 @@
                         <div class="mb-3">
                             <label for="article_title" class="form-label">Article Title</label>
                             <input type="text" name="article_title" class="form-control" id="article_title">
-                        </div>
-                        <div class="form-group">
-                            <label for="article_text">Article Content</label>
-                            <textarea name="article_text" id="article_text" rows="6" class="form-control"></textarea>
                         </div>
                     </div>
                     <div class="modal-footer">
