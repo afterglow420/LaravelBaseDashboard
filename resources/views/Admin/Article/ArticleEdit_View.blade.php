@@ -73,14 +73,82 @@
     </div>
 
     @push('scripts')
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/6.2.0/tinymce.min.js"></script>
+        <script src="{{ URL::to('assets/js/tinymce/tinymce.min.js') }}"></script>
         <script>
-            tinymce.init({
-                selector: 'textarea#articleEditor',
-                menubar: false,
-                plugins: 'code table lists image',
-                toolbar: 'undo redo | blocks | bold italic | alignleft aligncenter alignright | indent outdent | bullist numlist | table | image',
-            });
+            const uploadPromise = (blobInfo, progress) => new Promise((resolve, reject) => {
+            const xhr = new XMLHttpRequest();
+            xhr.withCredentials = false;
+            var urlPost = "{{ route('articles.upload') }}"
+            xhr.open('POST', urlPost);
+            xhr.upload.onprogress = (e) => {
+                progress(e.loaded / e.total * 100);
+            };
+
+            xhr.onload = () => {
+                if (xhr.status === 403) {
+                reject({ message: 'HTTP Error: ' + xhr.status, remove: true });
+                return;
+                }
+
+                if (xhr.status < 200 || xhr.status >= 300) {
+                reject('HTTP Error: ' + xhr.status);
+                return;
+                }
+
+                const json = JSON.parse(xhr.responseText);
+
+                if (!json || typeof json.location != 'string') {
+                reject('Invalid JSON: ' + xhr.responseText);
+                return;
+                }
+
+                resolve(json.location);
+            };
+
+            xhr.onerror = () => {
+                reject('Image upload failed due to a XHR Transport error. Code: ' + xhr.status);
+            };
+
+            const formData = new FormData();
+            formData.append('file', blobInfo.blob(), blobInfo.filename());
+
+            xhr.send(formData);
+        });
+    tinymce.init({
+        selector: '#articleEditor',
+        width: '100%',
+        height: 700,
+        plugins: 'image code',
+        browser_spellcheck: true,
+        menu: {
+            file: {
+                title: 'File',
+                items: 'newdocument restoredraft | preview | print'
+            },
+            edit: {
+                title: 'Edit',
+                items: 'undo redo | cut copy paste | selectall | searchreplace'
+            },
+            view: {
+                title: 'View',
+                items: 'code | visualaid visualchars visualblocks | preview fullscreen'
+            },
+            insert: {
+                title: 'Insert',
+                items: 'image link media template codesample inserttable | charmap emoticons hr | pagebreak nonbreaking anchor toc | insertdatetime'
+            },
+            format: {
+                title: 'Format',
+                items: 'bold italic underline strikethrough superscript subscript codeformat | formats blockformats fontformats fontsizes align | forecolor backcolor | removeformat'
+            }
+        },
+        toolbar: 'undo redo | styles | bold italic | alignleft aligncenter alignright alignjustify | outdent indent | image',
+        branding: false,
+        mobile: {
+            menubar: true
+        },
+        images_upload_handler: uploadPromise
+    });
         </script>
     @endpush
 </x-layouts.app>

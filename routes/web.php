@@ -19,3 +19,6 @@ Route::get('/dashboard', function () {
 });
 
 Route::resource('articles', ArticleController::class);
+
+// Text Editor upload route
+Route::post('articles/upload', [ArticleController::class, 'upload'])->name('articles.upload');
