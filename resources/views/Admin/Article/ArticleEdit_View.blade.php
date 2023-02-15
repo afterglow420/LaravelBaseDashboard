@@ -25,26 +25,49 @@
 
     <div class="card mt-2">
         <div class="card-body mt-2">
-            <form method="POST" action="{{ route('articles.update', $article) }}">
-                @csrf
-                @method('PUT')
-                <div class="modal-body">
-                    <div class="mb-3">
-                        <label for="article_title" class="form-label">Article Title</label>
-                        <input type="text" name="article_title" class="form-control" id="article_title"
-                            value="{{ $article->article_title }}">
-                    </div>
-                    <div class="form-group">
-                        <label for="article_text">Article Content</label>
-                        <textarea id="articleEditor" name="article_text" id="article_text" rows="6" class="form-control">{{ $article->article_text }}</textarea>
+            <div class="row">
+                <div class="col-8">
+                    <form method="POST" action="{{ route('articles.update', $article) }}"
+                        enctype="multipart/form-data">
+                        @csrf
+                        @method('PUT')
+                        <div class="modal-body">
+                            <div class="mb-3">
+                                <label for="article_title" class="form-label">Article Title</label>
+                                <input type="text" name="article_title" class="form-control" id="article_title"
+                                    value="{{ $article->article_title }}">
+                            </div>
+                            <div class="form-group">
+                                <label for="article_text">Article Content</label>
+                                <textarea id="articleEditor" name="article_text" id="article_text" rows="6" class="form-control">{{ $article->article_text }}</textarea>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-sm">Save</button>
+                        <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal"
+                            data-bs-target="#exampleModal">
+                            Delete
+                        </button>
+                    </form>
+                </div>
+                <div class="col-4">
+                    <h4>Article Feature Photo Preview</h4>
+                    <div class="card" style="width: 24rem;">
+                        <img src="{{ $article->article_photo }}" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <form method="POST" action="{{ route('uploadFeatured') }}" enctype="multipart/form-data">
+                                @csrf
+                                @method('POST')
+                                <input type="hidden" name="id_article" value="{{ $article->id_article }}">
+                                <div class="mb-3">
+                                    <label for="formFileSm" class="form-label">Feature Photo</label>
+                                    <input class="form-control form-control-sm" id="formFileSm" name="file" type="file">
+                                </div>
+                                <button type="submit" class="btn btn-primary btn-sm">Upload</button>
+                            </form>
+                        </div>
                     </div>
                 </div>
-                <button type="submit" class="btn btn-primary btn-sm">Save</button>
-                <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal"
-                    data-bs-target="#exampleModal">
-                    Delete
-                </button>
-            </form>
+            </div>
         </div>
     </div>
 
@@ -68,6 +91,7 @@
                         <button type="submit" class="btn btn-danger btn-sm">Confirm</button>
                     </div>
                 </form>
+                {{ route('upload', $article) }}
             </div>
         </div>
     </div>
@@ -76,79 +100,84 @@
         <script src="{{ URL::to('assets/js/tinymce/tinymce.min.js') }}"></script>
         <script>
             const uploadPromise = (blobInfo, progress) => new Promise((resolve, reject) => {
-            const xhr = new XMLHttpRequest();
-            xhr.withCredentials = false;
-            var urlPost = "{{ route('articles.upload') }}"
-            xhr.open('POST', urlPost);
-            xhr.upload.onprogress = (e) => {
-                progress(e.loaded / e.total * 100);
-            };
+                const xhr = new XMLHttpRequest();
+                xhr.withCredentials = false;
+                var urlPost = "{{ route('upload') }}";
+                xhr.open('POST', urlPost);
+                xhr.setRequestHeader("X-CSRF-Token", '{{ csrf_token() }}');
+                xhr.upload.onprogress = (e) => {
+                    progress(e.loaded / e.total * 100);
+                };
 
-            xhr.onload = () => {
-                if (xhr.status === 403) {
-                reject({ message: 'HTTP Error: ' + xhr.status, remove: true });
-                return;
-                }
+                xhr.onload = () => {
+                    if (xhr.status === 403) {
+                        reject({
+                            message: 'HTTP Error: ' + xhr.status,
+                            remove: true
+                        });
+                        return;
+                    }
 
-                if (xhr.status < 200 || xhr.status >= 300) {
-                reject('HTTP Error: ' + xhr.status);
-                return;
-                }
+                    if (xhr.status < 200 || xhr.status >= 300) {
+                        reject('HTTP Error: ' + xhr.status);
+                        return;
+                    }
 
-                const json = JSON.parse(xhr.responseText);
+                    const json = JSON.parse(xhr.responseText);
 
-                if (!json || typeof json.location != 'string') {
-                reject('Invalid JSON: ' + xhr.responseText);
-                return;
-                }
+                    if (!json || typeof json.location != 'string') {
+                        reject('Invalid JSON: ' + xhr.responseText);
+                        return;
+                    }
 
-                resolve(json.location);
-            };
+                    resolve(json.location);
+                };
 
-            xhr.onerror = () => {
-                reject('Image upload failed due to a XHR Transport error. Code: ' + xhr.status);
-            };
+                xhr.onerror = () => {
+                    reject('Image upload failed due to a XHR Transport error. Code: ' + xhr.status);
+                };
 
-            const formData = new FormData();
-            formData.append('file', blobInfo.blob(), blobInfo.filename());
+                const formData = new FormData();
+                formData.append('file', blobInfo.blob(), blobInfo.filename());
+                formData.append('id_article', {{ $article->id_article }});
 
-            xhr.send(formData);
-        });
-    tinymce.init({
-        selector: '#articleEditor',
-        width: '100%',
-        height: 700,
-        plugins: 'image code',
-        browser_spellcheck: true,
-        menu: {
-            file: {
-                title: 'File',
-                items: 'newdocument restoredraft | preview | print'
-            },
-            edit: {
-                title: 'Edit',
-                items: 'undo redo | cut copy paste | selectall | searchreplace'
-            },
-            view: {
-                title: 'View',
-                items: 'code | visualaid visualchars visualblocks | preview fullscreen'
-            },
-            insert: {
-                title: 'Insert',
-                items: 'image link media template codesample inserttable | charmap emoticons hr | pagebreak nonbreaking anchor toc | insertdatetime'
-            },
-            format: {
-                title: 'Format',
-                items: 'bold italic underline strikethrough superscript subscript codeformat | formats blockformats fontformats fontsizes align | forecolor backcolor | removeformat'
-            }
-        },
-        toolbar: 'undo redo | styles | bold italic | alignleft aligncenter alignright alignjustify | outdent indent | image',
-        branding: false,
-        mobile: {
-            menubar: true
-        },
-        images_upload_handler: uploadPromise
-    });
+                xhr.send(formData);
+            });
+            tinymce.init({
+                selector: '#articleEditor',
+                width: '100%',
+                height: 700,
+                plugins: 'image code',
+                browser_spellcheck: true,
+                menu: {
+                    file: {
+                        title: 'File',
+                        items: 'newdocument restoredraft | preview | print'
+                    },
+                    edit: {
+                        title: 'Edit',
+                        items: 'undo redo | cut copy paste | selectall | searchreplace'
+                    },
+                    view: {
+                        title: 'View',
+                        items: 'code | visualaid visualchars visualblocks | preview fullscreen'
+                    },
+                    insert: {
+                        title: 'Insert',
+                        items: 'image link media template codesample inserttable | charmap emoticons hr | pagebreak nonbreaking anchor toc | insertdatetime'
+                    },
+                    format: {
+                        title: 'Format',
+                        items: 'bold italic underline strikethrough superscript subscript codeformat | formats blockformats fontformats fontsizes align | forecolor backcolor | removeformat'
+                    }
+                },
+                toolbar: 'undo redo | styles | bold italic | alignleft aligncenter alignright alignjustify | outdent indent | image',
+                branding: false,
+                mobile: {
+                    menubar: true
+                },
+                images_upload_handler: uploadPromise
+            });
         </script>
     @endpush
 </x-layouts.app>

@@ -20,5 +20,8 @@ Route::get('/dashboard', function () {
 
 Route::resource('articles', ArticleController::class);
 
+Route::post('upload', [ArticleController::class, 'upload'])->name('upload');
+Route::post('uploadFeatured', [ArticleController::class, 'uploadFeatured'])->name('uploadFeatured');
+
 // Text Editor upload route
-Route::post('articles/upload', [ArticleController::class, 'upload'])->name('articles.upload');
+// Route::post('articles/upload', [ArticleController::class, 'upload'])->name('articles.upload');

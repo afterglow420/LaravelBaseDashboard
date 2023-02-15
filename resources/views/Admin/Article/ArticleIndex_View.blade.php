@@ -78,7 +78,8 @@
                         <td class="fw-bold">{{ $article->id_article }}</td>
                         <td>{{ $article->article_title }}</td>
                         <td>
-                            <a class="btn btn-sm btn-warning mr-2 mt-1" href="{{ route('articles.show', $article->id_article) }}">
+                            <a class="btn btn-sm btn-warning mr-2 mt-1"
+                                href="{{ route('articles.show', $article->id_article) }}">
                                 <i class="fa-solid fa-pen-to-square"></i>
                             </a>
                         </td>
@@ -96,13 +97,17 @@
                     <h5 class="modal-title" id="addArticle">Add Article</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <form method="POST" action="{{ route('articles.store') }}">
+                <form method="POST" action="{{ route('articles.store') }}" enctype="multipart/form-data">
                     @csrf
                     @method('POST')
                     <div class="modal-body">
                         <div class="mb-3">
                             <label for="article_title" class="form-label">Article Title</label>
                             <input type="text" name="article_title" class="form-control" id="article_title">
+                        </div>
+                        <div class="mb-3">
+                            <label for="formFileSm" class="form-label">Feature Photo</label>
+                            <input class="form-control form-control-sm" id="formFileSm" name="file" type="file">
                         </div>
                     </div>
                     <div class="modal-footer">
