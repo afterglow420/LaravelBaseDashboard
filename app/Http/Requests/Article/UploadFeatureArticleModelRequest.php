@@ -24,7 +24,7 @@ class UploadFeatureArticleModelRequest extends FormRequest
     public function rules()
     {
         return [
-            'file' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:4096',
+            'file' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'id_article' => 'required|integer'
         ];
     }

@@ -57,7 +57,7 @@
                                     clip-rule="evenodd"></path>
                             </svg>
                         </span>
-                        <span class="sidebar-text">Tables</span>
+                        <span class="sidebar-text">CMS</span>
                     </span>
                     <span class="link-arrow">
                         <svg class="icon icon-sm" fill="currentColor" viewBox="0 0 20 20"
@@ -73,6 +73,15 @@
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route("articles.index") }}">
                                 <span class="sidebar-text">Articles</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="multi-level collapse" role="list" id="submenu-app" aria-expanded="false">
+                    <ul class="flex-column nav">
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('medias.index') }}">
+                                <span class="sidebar-text">Media</span>
                             </a>
                         </li>
                     </ul>

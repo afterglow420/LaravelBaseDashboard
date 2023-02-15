@@ -28,13 +28,14 @@ class ArticleModel extends Model implements HasMedia
 
     public function registerMediaConversions(Media $media = null): void
     {
-        $this->addMediaConversion('preview')
+        $this->addMediaConversion('featuredImages')
             ->fit(Manipulations::FIT_CROP, 300, 300)
             ->nonQueued();
     }
 
     public function registerMediaCollections(): void
     {
-        $this->addMediaCollection('articleImages');
+        $this->addMediaCollection('editorImages')
+            ->acceptsMimeTypes(['image/jpeg', 'image/png', 'image/gif']);
     }
 }

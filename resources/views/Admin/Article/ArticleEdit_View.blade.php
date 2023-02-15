@@ -52,19 +52,25 @@
                 <div class="col-4">
                     <h4>Article Feature Photo Preview</h4>
                     <div class="card" style="width: 24rem;">
-                        <img src="{{ $article->article_photo }}" class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <form method="POST" action="{{ route('uploadFeatured') }}" enctype="multipart/form-data">
-                                @csrf
-                                @method('POST')
-                                <input type="hidden" name="id_article" value="{{ $article->id_article }}">
-                                <div class="mb-3">
-                                    <label for="formFileSm" class="form-label">Feature Photo</label>
-                                    <input class="form-control form-control-sm" id="formFileSm" name="file" type="file">
-                                </div>
-                                <button type="submit" class="btn btn-primary btn-sm">Upload</button>
-                            </form>
-                        </div>
+                        @if ($article->article_photo !== '')
+                            <img src="{{ $article->article_photo }}" class="card-img-top" alt="...">
+                            <a href="{{ route('deleteFeaturedPhoto') }}" class="btn btn-sm btn-danger">Delete</a>
+                        @else
+                            <div class="card-body">
+                                <form method="POST" action="{{ route('uploadFeatured') }}"
+                                    enctype="multipart/form-data">
+                                    @csrf
+                                    @method('POST')
+                                    <input type="hidden" name="id_article" value="{{ $article->id_article }}">
+                                    <div class="mb-3">
+                                        <label for="formFileSm" class="form-label">Feature Photo</label>
+                                        <input class="form-control form-control-sm" id="formFileSm" name="file"
+                                            type="file">
+                                    </div>
+                                    <button type="submit" class="btn btn-primary btn-sm">Upload</button>
+                                </form>
+                            </div>
+                        @endif
                     </div>
                 </div>
             </div>
@@ -91,7 +97,6 @@
                         <button type="submit" class="btn btn-danger btn-sm">Confirm</button>
                     </div>
                 </form>
-                {{ route('upload', $article) }}
             </div>
         </div>
     </div>
@@ -102,7 +107,7 @@
             const uploadPromise = (blobInfo, progress) => new Promise((resolve, reject) => {
                 const xhr = new XMLHttpRequest();
                 xhr.withCredentials = false;
-                var urlPost = "{{ route('upload') }}";
+                var urlPost = "{{ route('uploadFromTinyMCE') }}";
                 xhr.open('POST', urlPost);
                 xhr.setRequestHeader("X-CSRF-Token", '{{ csrf_token() }}');
                 xhr.upload.onprogress = (e) => {

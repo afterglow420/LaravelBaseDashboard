@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Article;
+namespace App\Http\Requests\Media;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreArticleModelRequest extends FormRequest
+class StoreMediaModelRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,9 +24,7 @@ class StoreArticleModelRequest extends FormRequest
     public function rules()
     {
         return [
-            'article_title' => 'required|max:24',
-            'article_text' => 'sometimes',
-            'file' => 'required|image|mimes:jpeg,png,jpg|max:2048',
+            'media_name' => 'required|string|max:255',
         ];
     }
 }

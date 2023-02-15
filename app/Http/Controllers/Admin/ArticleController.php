@@ -23,20 +23,23 @@ class ArticleController extends Controller
     {
         $article = ArticleModel::create($request->validated());
 
-        if($request->hasFile('file')){
+        $filename = md5($request->file('file')->getClientOriginalName()) . '.' . $request->file('file')->getClientOriginalExtension();
 
-            $filename = md5($request->file('file')->getClientOriginalName()) . '.' . $request->file('file')->getClientOriginalExtension();
-            $image = $article
-                ->addMediaFromRequest('file')
-                ->usingName($filename)
-                ->usingFileName($filename)
-                ->toMediaCollection('preview');
+        $media = $article
+            ->addMediaFromRequest('file')
+            ->usingName($filename)
+            ->usingFileName($filename)
+            ->toMediaCollection('featuredImages');
 
-            $article->article_photo = $image->getUrl('preview');
-            // dd($image->getUrl('preview'));
-            $article->save();}
+        $article->article_photo = $media->getUrl('featuredImages');
+        $article->save();
 
-        return redirect()->back()->with('message', $image->getUrl('preview'));
+        $media->custom_properties = [
+            'link' => $media->getUrl(),
+        ];
+        $media->save();
+
+        return redirect()->route('articles.index')->with('message', 'Article successfully added!');
     }
 
     public function show(ArticleModel $article)
@@ -48,7 +51,7 @@ class ArticleController extends Controller
     {
         $article->fill($request->validated())->save();
 
-        return redirect()->back()->with('message', 'Article successfully update!');
+        return redirect()->route('articles.show', $article)->with('message', 'Article successfully update!');
     }
 
     public function destroy(ArticleModel $article)
@@ -58,32 +61,52 @@ class ArticleController extends Controller
         return redirect()->route('articles.index')->with('message', 'Article deleted successfully!');
     }
 
-    public function upload(UploadArticleModelImageRequest $request)
+    public function uploadFromTinyMCE(UploadArticleModelImageRequest $request)
     {
         $article = ArticleModel::findOrFail($request->id_article);
 
         $filename = md5($request->file('file')->getClientOriginalName()) . '.' . $request->file('file')->getClientOriginalExtension();
-        $image = $article
+        $media = $article
             ->addMediaFromRequest('file')
             ->usingName($filename)
             ->usingFileName($filename)
             ->toMediaCollection('articleImages');
 
+        $media->custom_properties = [
+            'link' => $media->getUrl(),
+        ];
+        $media->save();
+
         return response()->json([
-            'location' => $image->getUrl()
+            'location' => $media->getUrl()
         ])->setEncodingOptions(JSON_UNESCAPED_SLASHES);
     }
 
     public function uploadFeatured(UploadFeatureArticleModelRequest $request)
     {
         $article = ArticleModel::findOrFail($request->id_article);
-        $image = $article
-                    ->addMediaFromRequest('file')
-                    ->toMediaCollection('preview');
-        
-        $article->article_photo = $image->getUrl('preview');
+        $media = $article
+            ->addMediaFromRequest('file')
+            ->toMediaCollection('featuredImages');
+
+        $article->article_photo = $media->getUrl('featuredImages');
         $article->save();
 
-        return redirect()->back()->with('message', 'Article featured photo successfully updated!');
+        $media->custom_properties = [
+            'link' => $media->getUrl(),
+        ];
+        $media->save();
+
+        return redirect()->route('articles.show', $article)->with('message', 'Article featured photo successfully updated!');
+    }
+
+    public function deleteFeaturedPhoto(ArticleModel $article)
+    {
+        $article->article_photo = '';
+        $article->save();
+        
+        Media::where('model_id', $article->id_article)->where('collection_name', 'featuredImages')->delete();
+
+        return redirect()->route('articles.show', $article)->with('message', 'Article featured photo successfully deleted!');
     }
 }

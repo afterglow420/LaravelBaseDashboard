@@ -19,7 +19,7 @@
                                             </svg>
                                         </a>
                                     </li>
-                                    <li class="breadcrumb-item"><a href="#">Tables</a></li>
+                                    <li class="breadcrumb-item"><a href="#">CMS</a></li>
                                     <li class="breadcrumb-item active" aria-current="page">Articles</li>
                                 </ol>
                             </nav>
