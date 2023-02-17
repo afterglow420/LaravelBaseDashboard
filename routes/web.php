@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,3 +17,6 @@ use Illuminate\Support\Facades\Route;
 Route::get('/dashboard', function () {
     return view('datatable');
 });
+
+// User Area routes
+Route::resource('users', UserController::class)->middleware('auth');
