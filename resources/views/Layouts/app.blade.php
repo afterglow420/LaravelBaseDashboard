@@ -90,7 +90,7 @@
 
 <body>
 
-    @if (in_array(request()->segment(1), ['dashboard', 'datatable', 'articles', 'medias']))
+    @if (in_array(request()->segment(1), ['dashboard', 'datatable', 'articles', 'medias', 'logs']))
         <!-- Sidenav -->
         @include('Layouts.sidenav')
 

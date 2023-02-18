@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\MediaModel;
 use Illuminate\Http\Request;
+use App\Models\Logs\LogModel;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Media\StoreMediaModelRequest;
-use App\Models\MediaModel;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 class MediaController extends Controller
@@ -35,12 +36,16 @@ class MediaController extends Controller
             $media->save();
         }
 
+        \App\Http\Controllers\Admin\LogController::logManager('store', $mediaModel);
+
         return redirect()->route('medias.index')->with('message', 'Media successfully added!');
     }
 
     public function destroy(Media $media)
     {
         $media->delete();
+
+        \App\Http\Controllers\Admin\LogController::logManager('delete', $media);
 
         return redirect()->route('medias.index')->with('message', 'Media successfully deleted!');
     }

@@ -87,6 +87,14 @@
                     </ul>
                 </div>
             </li>
+            <li class="nav-item active">
+                <a href="{{ route('logs') }}" class="nav-link">
+                    <span class="sidebar-icon">
+                        <i class="fa-solid fa-scroll"></i>
+                    </span>
+                    <span class="sidebar-text">Logs</span>
+                </a>
+            </li>
             <li role="separator" class="dropdown-divider mt-4 mb-3 border-gray-700"></li>
             <li class="nav-item">
                 <a href="../../pages/upgrade-to-pro.html"

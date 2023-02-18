@@ -1,8 +1,9 @@
 <?php
 
-use App\Http\Controllers\Admin\ArticleController;
-use App\Http\Controllers\Admin\MediaController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\LogController;
+use App\Http\Controllers\Admin\MediaController;
+use App\Http\Controllers\Admin\ArticleController;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,3 +32,6 @@ Route::resource('medias', MediaController::class);
 
 // Text Editor upload route
 // Route::post('articles/upload', [ArticleController::class, 'upload'])->name('articles.upload');
+
+// Logs Resources & Routes
+Route::get('logs', [LogController::class, 'index'])->name('logs');

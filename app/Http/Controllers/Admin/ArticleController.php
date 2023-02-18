@@ -10,6 +10,7 @@ use App\Http\Requests\Article\StoreArticleModelRequest;
 use App\Http\Requests\Article\UpdateArticleModelRequest;
 use App\Http\Requests\Article\UploadArticleModelImageRequest;
 use App\Http\Requests\Article\UploadFeatureArticleModelRequest;
+use App\Models\Logs\LogModel;
 
 class ArticleController extends Controller
 {
@@ -39,6 +40,8 @@ class ArticleController extends Controller
         ];
         $media->save();
 
+        \App\Http\Controllers\Admin\LogController::logManager('store', $article);
+
         return redirect()->route('articles.index')->with('message', 'Article successfully added!');
     }
 
@@ -51,12 +54,16 @@ class ArticleController extends Controller
     {
         $article->fill($request->validated())->save();
 
+        \App\Http\Controllers\Admin\LogController::logManager('update', $article);
+
         return redirect()->route('articles.show', $article)->with('message', 'Article successfully update!');
     }
 
     public function destroy(ArticleModel $article)
     {
         $article->delete();
+
+        \App\Http\Controllers\Admin\LogController::logManager('destroy', $article);
 
         return redirect()->route('articles.index')->with('message', 'Article deleted successfully!');
     }
@@ -76,6 +83,8 @@ class ArticleController extends Controller
             'link' => $media->getUrl(),
         ];
         $media->save();
+
+        \App\Http\Controllers\Admin\LogController::logManager('uploadFromTinyMCE', $media);
 
         return response()->json([
             'location' => $media->getUrl()
@@ -97,6 +106,8 @@ class ArticleController extends Controller
         ];
         $media->save();
 
+        \App\Http\Controllers\Admin\LogController::logManager('uploadFeatured', $media);
+
         return redirect()->route('articles.show', $article)->with('message', 'Article featured photo successfully updated!');
     }
 
@@ -106,6 +117,8 @@ class ArticleController extends Controller
         $article->save();
         
         Media::where('model_id', $article->id_article)->where('collection_name', 'featuredImages')->delete();
+
+        \App\Http\Controllers\Admin\LogController::logManager('deleteFeaturedPhoto', $article);
 
         return redirect()->route('articles.show', $article)->with('message', 'Article featured photo successfully deleted!');
     }
