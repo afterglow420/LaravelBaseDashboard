@@ -17,7 +17,7 @@ use App\Http\Controllers\Admin\ArticleController;
 */
 
 Route::get('/dashboard', function () {
-    return view('datatable');
+    return view('datatable')->name('dashboard');
 });
 
 //Article Resources & Routes

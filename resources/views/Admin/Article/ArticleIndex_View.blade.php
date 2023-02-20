@@ -52,6 +52,14 @@
                 </div>
             </div>
         </div>
+        
+        <x-tables.info-card
+            title="Articles"
+            subtitle="Detailed articles information."
+            crumbtitle="CMS"
+            crumb="#CMS"
+            endcrumb="Articles"
+        />
     </div>
 
     <!-- Table -->
