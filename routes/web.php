@@ -14,7 +14,7 @@ use App\Http\Controllers\Admin\UserController;
 |
 */
 
-Route::get('/dashboard', function () {
+Route::get('/datatable', function () {
     return view('datatable');
 });
 
