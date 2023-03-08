@@ -20,7 +20,7 @@ class ImportsController extends Controller
     public function show($import)
     {
         $import = ExcelUpload::find($import);
-        $headers = ExcelUploadedHeaders::where('excel_upload_model_id', $import->id)->first();
+        $headers = ExcelUploadedHeaders::where('excel_upload_id', $import->id)->first();
         $rows = ExcelUploadedRows::where('excel_uploaded_headers_id', $headers->id)->get();
 
         $rowData = [];
@@ -78,6 +78,8 @@ class ImportsController extends Controller
 
     public function destroy(ExcelUpload $import)
     {
+        $import->ExcelUploadedHeaders()->delete();
+        $import->ExcelUploadedRows()->delete();
         $import->delete();
 
         return redirect()->route('imports.index')->with('message', 'Table deleted successfully');

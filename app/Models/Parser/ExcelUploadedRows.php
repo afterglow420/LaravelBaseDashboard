@@ -35,7 +35,7 @@ class ExcelUploadedRows extends Model
     public static function extractRowData($excelUploadedHeadersId, $colOffset, $rowOffset)
     {
         $excelUploadedHeaders = ExcelUploadedHeaders::find($excelUploadedHeadersId);
-        $uploadModel = ExcelUpload::find($excelUploadedHeaders->excel_upload_model_id);
+        $uploadModel = ExcelUpload::find($excelUploadedHeaders->excel_upload_id);
         $path = $uploadModel->excel_file_path;
         $spreadsheet = IOFactory::load(storage_path('app/public/' . $path));
         $worksheet = $spreadsheet->getActiveSheet();
@@ -46,7 +46,7 @@ class ExcelUploadedRows extends Model
             $excelUploadedRows = new self();
             $excelUploadedRows->row_data = json_encode($rowData[0]);
             $excelUploadedRows->excel_uploaded_headers_id = $excelUploadedHeadersId;
-            $excelUploadedRows->excel_upload_model_id = $excelUploadedHeaders->excel_upload_model_id;
+            $excelUploadedRows->excel_upload_id = $excelUploadedHeaders->excel_upload_id;
             $excelUploadedRows->save();
         }
     }

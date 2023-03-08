@@ -18,9 +18,9 @@ return new class extends Migration
                 $table->id();
                 $table->string('row_data');
                 $table->unsignedBigInteger('excel_uploaded_headers_id');
-                $table->unsignedBigInteger('excel_upload_model_id');
+                $table->unsignedBigInteger('excel_upload_id');
                 $table->foreign('excel_uploaded_headers_id')->references('id')->on('excel_uploaded_headers');
-                $table->foreign('excel_upload_model_id')->references('id')->on('excel_upload_models');
+                $table->foreign('excel_upload_id')->references('id')->on('excel_upload_models');
             });
         }
     }

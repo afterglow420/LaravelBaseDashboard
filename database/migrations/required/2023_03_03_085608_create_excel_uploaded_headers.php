@@ -17,8 +17,8 @@ return new class extends Migration
             Schema::create('excel_uploaded_headers', function (Blueprint $table) {
                 $table->id();
                 $table->string('column_headers');
-                $table->unsignedBigInteger('excel_upload_model_id');
-                $table->foreign('excel_upload_model_id')->references('id')->on('excel_upload_models');
+                $table->unsignedBigInteger('excel_upload_id');
+                $table->foreign('excel_upload_id')->references('id')->on('excel_upload_models');
             });
         }
     }

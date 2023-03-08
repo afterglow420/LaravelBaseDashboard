@@ -16,7 +16,7 @@ class ExcelUploadedHeaders extends Model
 
     protected $fillable = [
         'column_headers',
-        'excel_upload_model_id',
+        'excel_upload_id',
     ];
 
     public $timestamps = false;
@@ -50,7 +50,7 @@ class ExcelUploadedHeaders extends Model
 
         $excelUploadedHeaders = new self();
         $excelUploadedHeaders->column_headers = json_encode($headers);
-        $excelUploadedHeaders->excel_upload_model_id = $excelUploadModelId;
+        $excelUploadedHeaders->excel_upload_id = $excelUploadModelId;
         $excelUploadedHeaders->save();
     }
 }

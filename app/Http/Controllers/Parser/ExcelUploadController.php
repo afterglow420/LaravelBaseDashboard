@@ -28,7 +28,7 @@ class ExcelUploadController extends Controller
         $uploadModelId = ExcelUpload::where('excel_file_path', $path)->first()->id;
 
         ExcelUploadedHeaders::extractColumnHeaders($uploadModelId, $colOffset);
-        $uploadedHeaderId = ExcelUploadedHeaders::where('excel_upload_model_id', $uploadModelId)->first()->id;
+        $uploadedHeaderId = ExcelUploadedHeaders::where('excel_upload_id', $uploadModelId)->first()->id;
 
         ExcelUploadedRows::extractRowData($uploadedHeaderId, $colOffset, $rowOffset);
 
