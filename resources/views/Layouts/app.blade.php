@@ -27,7 +27,7 @@
     <!-- dataTables CSS -->
     <link rel="stylesheet" type="text/css"
         href="https://cdn.datatables.net/v/bs5/jszip-2.5.0/dt-1.13.1/b-2.3.3/b-html5-2.3.3/b-print-2.3.3/cr-1.6.1/date-1.2.0/r-2.4.0/rr-1.3.1/sb-1.4.0/sp-2.1.0/sl-1.5.0/datatables.min.css" />
-        
+
     <!-- Sweet Alert -->
     <link type="text/css" href="{{ URL::to('vendor/sweetalert2/dist/sweetalert2.min.css') }}" rel="stylesheet">
 
@@ -36,7 +36,6 @@
 
     <!-- Styles CSS -->
     <link type="text/css" href="{{ URL::to('css/styles.css') }}" rel="stylesheet">
-    
 
     <!-- Scripts -->
 
@@ -89,7 +88,7 @@
 
 <body>
 
-    @if (in_array(request()->segment(1), ['dashboard', 'datatable', 'users']))
+    @if (in_array(request()->segment(1), ['dashboard', 'datatable', 'users', 'imports', 'parser', 'showRow']))
         <!-- Sidenav -->
         @include('Layouts.sidenav')
 
