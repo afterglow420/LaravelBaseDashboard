@@ -77,6 +77,15 @@
                         </li>
                     </ul>
                 </div>
+                <div class="multi-level collapse" role="list" id="submenu-app" aria-expanded="false">
+                    <ul class="flex-column nav">
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('imports.index') }}">
+                                <span class="sidebar-text">File Parser</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
             </li>
             <li class="nav-item">
 
