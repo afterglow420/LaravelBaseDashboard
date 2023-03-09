@@ -84,6 +84,10 @@
                                     href="{{ route('imports.showRow', $row['id']) }}">
                                     <i class="fa-solid fa-pen-to-square"></i>
                                 </a>
+                                <a class="btn btn-sm btn-danger mr-2 mt-1" data-bs-toggle="modal"
+                                    data-bs-target="#modalDeleteRow">
+                                    <i class="fa-solid fa-trash"></i>
+                                </a>
                             </td>
                         </tr>
                     @endforeach
@@ -119,6 +123,32 @@
             </div>
         </div>
     </div>
+
+    @if (isset($row))
+        <div class="modal fade" id="modalDeleteRow" tabindex="-1" aria-labelledby="modalDeleteRow"
+            aria-hidden="true">
+            <div class="modal-dialog">
+                <form method="POST" action="{{ route('imports.destroyRow', $row['id']) }}" enctype="multipart/form-data">
+                    @csrf
+                    @method('POST')
+
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="modalDeleteRow">Confirm Delete</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <p>Are you sure you want to delete this row?</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-primary">Delete</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    @endif
 
     @push('scripts')
         <script>

@@ -9,6 +9,7 @@ use App\Http\Requests\Parser\ExcelRowUpdateRequest;
 use App\Http\Requests\Parser\ExcelUpdateTableNameRequest;
 use App\Models\Parser\ExcelUploadedRows;
 use App\Models\Parser\ExcelUploadedHeaders;
+use Termwind\Components\Dd;
 
 class ImportsController extends Controller
 {
@@ -53,7 +54,7 @@ class ImportsController extends Controller
     {
         $row = ExcelUploadedRows::find($id);
         $rows = json_decode($row['row_data'], true);
-        
+        // dd($rows);        
         $header = ExcelUploadedHeaders::find($row->excel_uploaded_headers_id);
         
         $data = [
@@ -83,5 +84,14 @@ class ImportsController extends Controller
         $import->delete();
 
         return redirect()->route('imports.index')->with('message', 'Table deleted successfully');
+    }
+
+    public function destroyRow($rowId)
+    {
+        $row = ExcelUploadedRows::find($rowId);
+        $import = ExcelUpload::find($row->ExcelUploadedHeaders->excel_upload_id);
+        $row->delete();
+
+        return redirect()->route('imports.show', $import)->with('message', 'Row deleted successfully');
     }
 }

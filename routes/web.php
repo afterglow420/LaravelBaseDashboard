@@ -24,6 +24,7 @@ Route::get('/datatable', function () {
 Route::resource('users', UserController::class)->middleware('auth');
 
 // Parser Area routes
+Route::post('destroyRow/{row}', [ImportsController::class, 'destroyRow'])->middleware('auth')->name('imports.destroyRow');
 Route::get('showRow/{row}', [ImportsController::class, 'showRow'])->middleware('auth')->name('imports.showRow');
 Route::post('updateRow/{row}', [ImportsController::class, 'updateRow'])->middleware('auth')->name('imports.updateRow');
 Route::resource('imports', ImportsController::class)->middleware('auth');

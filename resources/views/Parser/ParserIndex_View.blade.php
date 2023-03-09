@@ -108,26 +108,25 @@
                             <div class="col-6">
                                 <div class="mb-3">
                                     <label for="col_offset" class="form-label">Col Offset</label>
-                                    <input type="text" name="col_offset" class="form-control" id="col_offset" value="A">
-                                    <small style="font-size: 10px;">Standard table column start. Default A, change according to the uploaded table.</small>
+                                    <input type="text" name="col_offset" class="form-control" id="col_offset"
+                                        value="A">
+                                    <small style="font-size: 10px;"></small>
                                 </div>
                             </div>
                             <div class="col-6">
                                 <div class="mb-3">
                                     <label for="row_offset" class="form-label">Row Offset</label>
-                                    <input type="text" name="row_offset" class="form-control" id="row_offset" value="2">
-                                    <small style="font-size: 10px;">Standard table row start. Default 2, change according to the uploaded table.</small>
+                                    <input type="text" name="row_offset" class="form-control" id="row_offset"
+                                        value="2">
+                                    <small style="font-size: 10px;"></small>
                                 </div>
                             </div>
-                        </div>
-                        <div class="col-12">
-                                
                         </div>
                         <div class="mb-3">
                             <label for="excel_file" class="form-label">Excel file</label>
                             <input type="file" name="excel_file" class="form-control" id="excel_file">
                         </div>
-
+                        <small>Offset represent the start of the table's column and or row. Adjust according to the uploaded table.</small>
                     </div>
                     <div class="modal-footer">
                         <button type="submit" class="btn btn-primary btn-sm">upload</button>
