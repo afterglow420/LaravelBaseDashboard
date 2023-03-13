@@ -24,8 +24,6 @@ class ExcelUploadController extends Controller
         $data = $request->validated();
         $data['excel_file_path'] = $path;
         
-        // dd($request->all());
-
         ExcelUpload::create($data);
         $uploadModelId = ExcelUpload::where('excel_file_path', $path)->first()->id;
 
