@@ -29,3 +29,5 @@ Route::get('showRow/{row}', [ImportsController::class, 'showRow'])->middleware('
 Route::post('updateRow/{row}', [ImportsController::class, 'updateRow'])->middleware('auth')->name('imports.updateRow');
 Route::resource('imports', ImportsController::class)->middleware('auth');
 Route::post('excel-upload', ExcelUploadController::class)->middleware('auth')->name('excel-upload');
+
+// Custom Filter routes
