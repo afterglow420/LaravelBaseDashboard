@@ -1,3 +1,7 @@
 #dataTable_filter {
     float: right !important; 
 }
+
+#searchFilter {
+    width: 120px !important; /* or any other value you want */
+  }

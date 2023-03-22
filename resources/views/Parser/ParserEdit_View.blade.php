@@ -52,17 +52,37 @@
 
     <!-- Table -->
     <div class="mt-2 card card-body border-0 shadow">
-        <div class="row mb-2">
-            <div class="col md-6">
-                <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal"
-                    data-bs-target="#editTableName">
-                    Edit Table Name
-                </button>
-                <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#addEntry">
-                    Add table entry
-                </button>
-            </div>
+        <div class="col-md-12 d-flex align-items-center">
+            <button type="button" class="btn btn-primary btn-sm me-2" data-bs-toggle="modal"
+                data-bs-target="#editTableName">
+                Edit Table Name
+            </button>
+            <button type="button" class="btn btn-primary btn-sm m-2" data-bs-toggle="modal" data-bs-target="#addEntry">
+                Add table entry
+            </button>
+            <form action="{{ route('imports.showSearchResult') }}" class="d-flex flex-row align-items-center flex-wrap">
+                @csrf
+                @method('GET')
+                <select name="filters_gender" id="searchFilter" class="form-select form-select-sm m-2" style="width: 120px !important;" aria-label=".form-select-sm example">
+                    <option selected disabled>Gender</option>
+                    <option disabled>-------------</option>
+                    @foreach ($uniqueGenders as $gender)
+                        <option value="{{ $gender }}">{{ $gender }}</option>
+                    @endforeach
+                </select>
+                <select name="filters_country" id="searchFilter" class="form-select form-select-sm m-2" style="width: 120px !important;" aria-label=".form-select-sm example">
+                    <option selected disabled>Country</option>
+                    <option disabled>-------------</option>
+                    @foreach ($uniqueCountries as $countries)
+                        <option value="{{ $countries }}">{{ $countries }}</option>
+                    @endforeach
+                </select>
+                <input name="search" style="width: 160px;" type="text" class="form-control form-control-sm m-2" placeholder="Search...">
+                <button type="submit" class="btn btn-primary btn-sm m-2">Search</button>
+            </form>
         </div>
+        
+
         <div class="table-responsive">
             <table id="dataTable" class="table table-hover table-striped">
                 <thead>
@@ -128,7 +148,8 @@
         <div class="modal fade" id="modalDeleteRow" tabindex="-1" aria-labelledby="modalDeleteRow"
             aria-hidden="true">
             <div class="modal-dialog">
-                <form method="POST" action="{{ route('imports.destroyRow', $row['id']) }}" enctype="multipart/form-data">
+                <form method="POST" action="{{ route('imports.destroyRow', $row['id']) }}"
+                    enctype="multipart/form-data">
                     @csrf
                     @method('POST')
 

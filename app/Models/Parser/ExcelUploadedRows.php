@@ -50,4 +50,13 @@ class ExcelUploadedRows extends Model
             $excelUploadedRows->save();
         }
     }
+
+    public static function filterData($search, $filters)
+    {
+        if($search) {
+            $query = self::where('row_data', 'LIKE', '%' . $search . '%')->get();
+        }
+        
+        return $query;
+    }
 }

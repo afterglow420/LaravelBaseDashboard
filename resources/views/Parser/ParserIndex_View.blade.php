@@ -60,7 +60,7 @@
                 </button>
             </div>
         </div>
-        <table id="dataTable" class="table table-hover table-striped">
+        <table id="#" class="table table-hover table-striped">
             <thead>
                 <tr>
                     <th class="border-gray-200">Table Id</th>
